@@ -23,13 +23,8 @@ public class TestController {
     @Autowired
     FileRepository fileRepository;
 
-   /* @GetMapping("/")
-    public String index() {
-        return "uploadform";
-    }*/
-
     @PostMapping("/uploadImage")
-    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity uploadMultipartFile(@Valid @RequestParam("files") MultipartFile[] files, Model model) {
         List fileNames = new ArrayList();
 
