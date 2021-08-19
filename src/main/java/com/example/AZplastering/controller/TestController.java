@@ -24,7 +24,7 @@ public class TestController {
     FileRepository fileRepository;
 
     @PostMapping("/uploadImage")
-    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity uploadMultipartFile(@Valid @RequestParam("files") MultipartFile[] files, Model model) {
         List fileNames = new ArrayList();
 
