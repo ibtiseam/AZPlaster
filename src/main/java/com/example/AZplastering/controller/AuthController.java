@@ -1,5 +1,6 @@
 package com.example.AZplastering.controller;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -7,13 +8,18 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.example.AZplastering.ResponseMessage;
+import com.example.AZplastering.model.FileModel;
+import com.example.AZplastering.repository.FileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.AZplastering.models.ERole;
@@ -27,6 +33,7 @@ import com.example.AZplastering.repository.RoleRepository;
 import com.example.AZplastering.repository.UserRepository;
 import com.example.AZplastering.security.jwt.JwtUtils;
 import com.example.AZplastering.security.services.UserDetailsImpl;
+import org.springframework.web.multipart.MultipartFile;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -46,11 +53,10 @@ public class AuthController {
 
     @Autowired
     JwtUtils jwtUtils;
+
     @PostMapping(value ="/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-        System.out.println(loginRequest);
-        System.out.println(loginRequest.getPassword());
-        System.out.println(loginRequest.getUsername());
+
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
