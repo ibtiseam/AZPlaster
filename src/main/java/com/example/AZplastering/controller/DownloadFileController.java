@@ -27,10 +27,11 @@ public class DownloadFileController {
     public ResponseEntity getListFiles(Model model) {
         List fileInfos = fileRepository.findAll().stream().map(
                         fileModel ->	{
+                            Long id = fileModel.getId();
                             String filename = fileModel.getName();
                             String url = MvcUriComponentsBuilder.fromMethodName(DownloadFileController.class,
                                     "downloadFile", fileModel.getName().toString()).build().toString();
-                            return new FileInfo(filename, url);
+                            return new FileInfo(id, filename, url);
                         }
                 )
                 .collect(Collectors.toList());

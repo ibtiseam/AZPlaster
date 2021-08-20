@@ -7,8 +7,7 @@ import javax.persistence.*;
 @Table(name="file_model")
 public class FileModel  extends DateAudit {
     @Id
-    @GeneratedValue
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name")

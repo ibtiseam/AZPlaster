@@ -16,19 +16,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
+
 
 @Controller
 public class UploadFileController {
+
     @Autowired
     FileRepository fileRepository;
 
-   /* @GetMapping("/")
-    public String index() {
-        return "uploadform";
-    }*/
 
     @PostMapping("/upload")
-    public ResponseEntity uploadMultipartFile(@RequestParam("files") MultipartFile[] files, Model model) {
+    public ResponseEntity uploadMultipartFile(@Valid @RequestParam("files") MultipartFile[] files, Model model) {
         List fileNames = new ArrayList();
 
 
