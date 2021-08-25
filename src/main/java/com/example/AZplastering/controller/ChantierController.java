@@ -14,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @Controller
-@CrossOrigin("http://localhost:8081")
 public class ChantierController {
 
     @Autowired
