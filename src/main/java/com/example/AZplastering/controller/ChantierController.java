@@ -37,20 +37,17 @@ public class ChantierController {
     }
 
     @GetMapping("/listChantie")
-    ResponseEntity getListFiles(Model model)
+     public ResponseEntity getListFiles(Model model)
     {
         List<Chantier> chantiers = chantierService.getAllChantiers();
         model.addAttribute("chantiers", chantiers);
         return ResponseEntity.status(HttpStatus.OK).body(chantiers);
     }
-    @GetMapping("/listChantie/{fileName}")
-    public ResponseEntity downloadFile(@PathVariable String fileName) {
-        Chantier file = chantierRepo.findByName(fileName);
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFileName() + "\"")
-                .body(file.getFilePath());
+    @GetMapping("/listChantie/{filePath}")
+    public ResponseEntity downloadFile(@PathVariable String filePath) {
+        Chantier ch = chantierRepo.findByName(filePath) ;
+        return ResponseEntity.status(HttpStatus.OK).body(ch);
     }
-
     @GetMapping("/")
     public String showAddProduct()
     {
