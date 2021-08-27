@@ -1,7 +1,9 @@
 package com.example.AZplastering.controller;
 
 import com.example.AZplastering.ResponseMessage;
+import com.example.AZplastering.dto.ChantierRepository;
 import com.example.AZplastering.model.Chantier;
+import com.example.AZplastering.model.FileInfo;
 import com.example.AZplastering.service.ChantierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,14 +12,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class ChantierController {
 
     @Autowired
     private ChantierService chantierService;
+
+    @Autowired
+    private ChantierRepository chantierRepo;
 
     @GetMapping("/listChantier.html")
     public String showExampleView(Model model)
@@ -26,13 +33,15 @@ public class ChantierController {
         model.addAttribute("chantiers", chantiers);
         return "/listChantier.html";
     }
-    @GetMapping("/listChantier")
+    @GetMapping("/listChan")
     public String showChantier(Model model)
     {
         List<Chantier> chantiers = chantierService.getAllChantiers();
         model.addAttribute("chantiers", chantiers);
-        return "/listChantier";
+        return "/listChan";
     }
+
+
     @GetMapping("/")
     public String showAddProduct()
     {
