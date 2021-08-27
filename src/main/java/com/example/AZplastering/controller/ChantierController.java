@@ -26,6 +26,13 @@ public class ChantierController {
         model.addAttribute("chantiers", chantiers);
         return "/listChantier.html";
     }
+    @GetMapping("/listChantier")
+    public String showChantier(Model model)
+    {
+        List<Chantier> chantiers = chantierService.getAllChantiers();
+        model.addAttribute("chantiers", chantiers);
+        return "/listChantier";
+    }
     @GetMapping("/")
     public String showAddProduct()
     {
