@@ -1,6 +1,7 @@
 package com.example.AZplastering.controller;
 
 import com.example.AZplastering.ResponseMessage;
+import com.example.AZplastering.dto.ChantierRepository;
 import com.example.AZplastering.model.Chantier;
 import com.example.AZplastering.model.FileInfo;
 import com.example.AZplastering.service.ChantierService;
@@ -22,6 +23,9 @@ public class ChantierController {
     @Autowired
     private ChantierService chantierService;
 
+    @Autowired
+    private ChantierRepository chantierRepo;
+
     @GetMapping("/listChantier.html")
     public String showExampleView(Model model)
     {
@@ -29,13 +33,14 @@ public class ChantierController {
         model.addAttribute("chantiers", chantiers);
         return "/listChantier.html";
     }
-
-    @GetMapping("/listChantie")
-    public ResponseEntity getListFiles(Model model) {
-
+    @GetMapping("/listChan")
+    public String showChantier(Model model)
+    {
         List<Chantier> chantiers = chantierService.getAllChantiers();
-        return ResponseEntity.status(HttpStatus.OK).body(chantiers);
+        model.addAttribute("chantiers", chantiers);
+        return "/listChan";
     }
+
 
     @GetMapping("/")
     public String showAddProduct()
