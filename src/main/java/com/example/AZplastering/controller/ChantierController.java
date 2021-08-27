@@ -4,8 +4,10 @@ import com.example.AZplastering.ResponseMessage;
 import com.example.AZplastering.dto.ChantierRepository;
 import com.example.AZplastering.model.Chantier;
 import com.example.AZplastering.model.FileInfo;
+import com.example.AZplastering.model.FileModel;
 import com.example.AZplastering.service.ChantierService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -33,13 +35,6 @@ public class ChantierController {
         model.addAttribute("chantiers", chantiers);
         return "/listChantier.html";
     }
-    @GetMapping("/listChan")
-    public String showChantier(Model model)
-    {
-        List<Chantier> chantiers = chantierService.getAllChantiers();
-        model.addAttribute("chantiers", chantiers);
-        return "/listChan";
-    }
 
     @GetMapping("/listChantie")
     ResponseEntity getListFiles(Model model)
@@ -47,6 +42,13 @@ public class ChantierController {
         List<Chantier> chantiers = chantierService.getAllChantiers();
         model.addAttribute("chantiers", chantiers);
         return ResponseEntity.status(HttpStatus.OK).body(chantiers);
+    }
+    @GetMapping("/listChantie/{fileName}")
+    public ResponseEntity downloadFile(@PathVariable String fileName) {
+        Chantier file = chantierRepo.findByName(fileName);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFileName() + "\"")
+                .body(file.getFilePath());
     }
 
     @GetMapping("/")
