@@ -41,6 +41,13 @@ public class ChantierController {
         return "/listChan";
     }
 
+    @GetMapping("/listChantie")
+    ResponseEntity getListFiles(Model model)
+    {
+        List<Chantier> chantiers = chantierService.getAllChantiers();
+        model.addAttribute("chantiers", chantiers);
+        return ResponseEntity.status(HttpStatus.OK).body(chantiers);
+    }
 
     @GetMapping("/")
     public String showAddProduct()
