@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
@@ -48,6 +49,27 @@ public class ChantierController {
         Chantier ch = chantierRepo.findByName(filePath) ;
         return ResponseEntity.status(HttpStatus.OK).body(ch);
     }
+    @GetMapping("/listChantie/{id}")
+    public ResponseEntity<Chantier> getChantierById(@PathVariable("id") long id) {
+        Optional<Chantier> chantierData = chantierRepo.findById(id);
+
+        if (chantierData.isPresent()) {
+            return new ResponseEntity<>(chantierData.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    @GetMapping("/listChantie/{name}")
+    public ResponseEntity<Chantier> getChantierByName(@PathVariable("name") String name) {
+        Optional<Chantier> chantierDat = Optional.ofNullable(chantierRepo.findByName(name));
+
+        if (chantierDat.isPresent()) {
+            return new ResponseEntity<>(chantierDat.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @GetMapping("/")
     public String showAddProduct()
     {

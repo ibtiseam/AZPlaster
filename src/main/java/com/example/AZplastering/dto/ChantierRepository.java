@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ChantierRepository extends JpaRepository<Chantier, Long> {
-    public Chantier findByName(String filePath);
+    public Chantier findByName(String name);
 }
