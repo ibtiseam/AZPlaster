@@ -74,7 +74,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/listChantie/{fileName}").permitAll()
                 .antMatchers(HttpMethod.POST ,"/addCh").permitAll()
                 .antMatchers("/listChantie").permitAll()
-                .antMatchers("/listChan").permitAll()
+                .antMatchers("/**").permitAll()
 
                 .anyRequest().authenticated();
 

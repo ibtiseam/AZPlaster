@@ -3,8 +3,6 @@ package com.example.AZplastering.controller;
 import com.example.AZplastering.ResponseMessage;
 import com.example.AZplastering.dto.ChantierRepository;
 import com.example.AZplastering.model.Chantier;
-import com.example.AZplastering.model.FileInfo;
-import com.example.AZplastering.model.FileModel;
 import com.example.AZplastering.service.ChantierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
