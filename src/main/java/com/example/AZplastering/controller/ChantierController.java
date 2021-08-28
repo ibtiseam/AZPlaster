@@ -42,9 +42,9 @@ public class ChantierController {
 
     @GetMapping("/listChantie/{id}")
     public ResponseEntity getTutorialById(@PathVariable("id") long id) {
-        Optional<Chantier> chantier = chantierRepo.findById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(chantier);
+        return ResponseEntity.status(HttpStatus.OK).body(chantierRepo.findById(id));
     }
+
     @GetMapping("/listChantie/{name}")
     public ResponseEntity getChantierByName(@PathVariable("name") String name) {
         Chantier chantierDat = chantierRepo.findByName(name);
