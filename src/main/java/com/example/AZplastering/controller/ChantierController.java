@@ -3,22 +3,17 @@ package com.example.AZplastering.controller;
 import com.example.AZplastering.ResponseMessage;
 import com.example.AZplastering.dto.ChantierRepository;
 import com.example.AZplastering.model.Chantier;
-import com.example.AZplastering.model.FileInfo;
-import com.example.AZplastering.model.FileModel;
 import com.example.AZplastering.service.ChantierService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Controller
 public class ChantierController {
@@ -50,24 +45,14 @@ public class ChantierController {
         return ResponseEntity.status(HttpStatus.OK).body(ch);
     }
     @GetMapping("/listChantie/{id}")
-    public ResponseEntity<Chantier> getChantierById(@PathVariable("id") long id) {
-        Optional<Chantier> chantierData = chantierRepo.findById(id);
-
-        if (chantierData.isPresent()) {
-            return new ResponseEntity<>(chantierData.get(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<Optional<Chantier>> getChantierById(@PathVariable("id") long id) {
+        Optional<Chantier> ch = chantierRepo.findById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(ch);
     }
     @GetMapping("/listChantie/{name}")
-    public ResponseEntity<Chantier> getChantierByName(@PathVariable("name") String name) {
-        Optional<Chantier> chantierDat = Optional.ofNullable(chantierRepo.findByName(name));
-
-        if (chantierDat.isPresent()) {
-            return new ResponseEntity<>(chantierDat.get(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity getChantierByName(@PathVariable("name") String name) {
+        Chantier chantierDat = chantierRepo.findByName(name);
+        return ResponseEntity.status(HttpStatus.OK).body(chantierDat);
     }
 
     @GetMapping("/")
