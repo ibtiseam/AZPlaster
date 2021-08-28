@@ -45,9 +45,14 @@ public class ChantierController {
         return ResponseEntity.status(HttpStatus.OK).body(ch);
     }
     @GetMapping("/listChantie/{id}")
-    public ResponseEntity<Optional<Chantier>> getChantierById(@PathVariable("id") long id) {
-        Optional<Chantier> ch = chantierRepo.findById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(ch);
+    public ResponseEntity<Chantier> getTutorialById(@PathVariable("id") long id) {
+        Optional<Chantier> tutorialData = chantierRepo.findById(id);
+
+        if (tutorialData.isPresent()) {
+            return new ResponseEntity<>(tutorialData.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
     @GetMapping("/listChantie/{name}")
     public ResponseEntity getChantierByName(@PathVariable("name") String name) {
