@@ -39,20 +39,11 @@ public class ChantierController {
         model.addAttribute("chantiers", chantiers);
         return ResponseEntity.status(HttpStatus.OK).body(chantiers);
     }
-    @GetMapping("/listChantie/{filePath}")
-    public ResponseEntity downloadFile(@PathVariable String filePath) {
-        Chantier ch = chantierRepo.findByName(filePath) ;
-        return ResponseEntity.status(HttpStatus.OK).body(ch);
-    }
-    @GetMapping("/listChantie/{id}")
-    public ResponseEntity<Chantier> getTutorialById(@PathVariable("id") long id) {
-        Optional<Chantier> tutorialData = chantierRepo.findById(id);
 
-        if (tutorialData.isPresent()) {
-            return new ResponseEntity<>(tutorialData.get(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    @GetMapping("/listChantie/{id}")
+    public ResponseEntity getTutorialById(@PathVariable("id") long id) {
+        Optional<Chantier> chantier = chantierRepo.findById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(chantier);
     }
     @GetMapping("/listChantie/{name}")
     public ResponseEntity getChantierByName(@PathVariable("name") String name) {
