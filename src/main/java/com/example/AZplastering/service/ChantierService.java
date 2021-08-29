@@ -8,8 +8,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Base64;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ChantierService {
@@ -73,6 +73,9 @@ public class ChantierService {
     {
         return chantierRepo.findAll();
     }
+
+    public Optional<Chantier> getChantierById(Long id){
+        return chantierRepo.findById(id);}
 
     public void deleteChantierById(Long id)
     {

@@ -27,10 +27,6 @@ public class ChantierController {
     @Autowired
     private ChantierRepository chantierRepo;
 
-    @GetMapping("/listChantiers")
-    public List<Chantier> getAllChantiers() {
-        return chantierRepo.findAll();
-    }
 
     @GetMapping("/listChantie")
      public ResponseEntity getListFiles(Model model)
@@ -43,7 +39,7 @@ public class ChantierController {
     @GetMapping("/listChantie/{id}")
     public ResponseEntity<Chantier> getChantierById(@PathVariable(value = "id") Long id)
             throws ResourceNotFoundException {
-        Chantier chantier = chantierRepo.findById(id)
+        Chantier chantier = chantierService.getChantierById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + id));
         return ResponseEntity.ok().body(chantier);
     }
@@ -69,11 +65,6 @@ public class ChantierController {
         return ResponseEntity.ok(updatedChantier);
     }
 
-    @GetMapping("/listChantie/{name}")
-    public ResponseEntity getChantierByName(@PathVariable("name") String name) {
-        Chantier chantierDat = chantierRepo.findByName(name);
-        return ResponseEntity.status(HttpStatus.OK).body(chantierDat);
-    }
 
     @GetMapping("/")
     public String showAddProduct()
