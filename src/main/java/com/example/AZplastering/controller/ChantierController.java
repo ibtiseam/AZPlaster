@@ -27,8 +27,8 @@ public class ChantierController {
     @Autowired
     private ChantierRepository chantierRepo;
 
-    @GetMapping("/listChantier")
-    public List<Chantier> getAllChantier() {
+    @GetMapping("/listChantiers")
+    public List<Chantier> getAllChantiers() {
         return chantierRepo.findAll();
     }
 
