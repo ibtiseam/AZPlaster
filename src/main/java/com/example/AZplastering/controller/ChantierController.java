@@ -17,7 +17,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+@RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class ChantierController {
 
@@ -27,12 +27,9 @@ public class ChantierController {
     @Autowired
     private ChantierRepository chantierRepo;
 
-    @GetMapping("/listChantier.html")
-    public String showExampleView(Model model)
-    {
-        List<Chantier> chantiers = chantierService.getAllChantiers();
-        model.addAttribute("chantiers", chantiers);
-        return "/listChantier.html";
+    @GetMapping("/listChantier")
+    public List<Chantier> getAllChantier() {
+        return chantierRepo.findAll();
     }
 
     @GetMapping("/listChantie")
