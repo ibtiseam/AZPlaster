@@ -1,5 +1,6 @@
 package com.example.AZplastering.controller;
 
+import com.example.AZplastering.ResourceNotFoundException;
 import com.example.AZplastering.ResponseMessage;
 import com.example.AZplastering.dto.ChantierRepository;
 import com.example.AZplastering.model.Chantier;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,8 +44,32 @@ public class ChantierController {
     }
 
     @GetMapping("/listChantie/{id}")
-    public ResponseEntity getTutorialById(@PathVariable("id") long id) {
-        return ResponseEntity.status(HttpStatus.OK).body(chantierRepo.findById(id));
+    public ResponseEntity<Chantier> getChantierById(@PathVariable(value = "id") Long id)
+            throws ResourceNotFoundException {
+        Chantier chantier = chantierRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + id));
+        return ResponseEntity.ok().body(chantier);
+    }
+
+
+    @PutMapping("/listChantie/{id}")
+    public ResponseEntity<Chantier> updateChantier(@PathVariable(value = "id") Long id,
+                                                   @Valid @RequestBody Chantier chantierDetails)throws ResourceNotFoundException {
+        Chantier chantier = chantierRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + id));
+
+        chantier.setName(chantierDetails.getName());
+        chantier.setClient(chantierDetails.getClient());
+        chantier.setRegion(chantierDetails.getRegion());
+        chantier.setType_projet(chantierDetails.getType_projet());
+        chantier.setType_travaux(chantierDetails.getType_travaux());
+        chantier.setFilePath(chantierDetails.getFilePath());
+        chantier.setFilePath2(chantierDetails.getFilePath2());
+        chantier.setFilePath3(chantierDetails.getFilePath3());
+        chantier.setFilePath4(chantierDetails.getFilePath4());
+        chantier.setFilePath5(chantierDetails.getFilePath5());
+        final Chantier updatedChantier = chantierRepo.save(chantier);
+        return ResponseEntity.ok(updatedChantier);
     }
 
     @GetMapping("/listChantie/{name}")
