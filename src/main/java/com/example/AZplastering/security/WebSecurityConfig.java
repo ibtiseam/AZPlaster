@@ -87,18 +87,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
-    @Configuration
-    @EnableWebMvc
-    public class WebConfig implements WebMvcConfigurer {
 
-        @Override
-        public void addCorsMappings(CorsRegistry corsRegistry) {
-            corsRegistry.addMapping("/**")
-                    .allowedOrigins("http://localhost:4200")
-                    .allowedMethods("*")
-                    .maxAge(3600L)
-                    .allowedHeaders("*")
-                    .allowCredentials(true);
-        }
-    }
 }
