@@ -21,7 +21,6 @@ public class DevisController {
     @Autowired
     DevisRepository tutorialRepository;
     @GetMapping("/devis")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<Devis>>getAllTutorials(@RequestParam(required = false) String sujet) {
         try {
             List<Devis> tutorials = new ArrayList<Devis>();
